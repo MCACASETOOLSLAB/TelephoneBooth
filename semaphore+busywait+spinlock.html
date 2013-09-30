@@ -1,0 +1,211 @@
+<html>
+<head>
+<style type="text/css">
+#b1
+{
+position:absolute;
+left:50px;
+top:300px;
+}
+#b2
+{
+position:absolute;
+right:10px;
+top:300px;
+
+}
+
+#b3
+{
+position:absolute;
+left:50px;
+top:500px;
+
+}
+#b4
+{
+position:absolute;
+right:50px;
+top:500px;
+
+}
+p
+{
+position:absolute;
+left:5px;
+top:650px;
+
+list-style-type:none;
+margin:0;
+padding:10;
+overflow:hidden;
+
+}
+h1
+{
+position:absolute;
+left:5px;
+top:580px;
+
+list-style-type:none;
+margin:0;
+padding:10px;
+overflow:hidden;
+margin-left:500px;
+}
+
+li
+{
+float:left;
+}
+
+</style>
+</head>
+<body>
+<center><b>Telephone Booth(Critical Section)</b></center>
+
+
+<div id="t1"><center>
+<img src="TelephoneBooth.jpg"  height="200px" width="170px"></center>	</div>
+<div id="b1">
+<img src="How to draw a cartoon man.png" alt="some_text" height="200px" width="170px"> Customer1
+ </div>
+<div id="b2">
+<img src="How to draw a cartoon man.png" alt="some_text" height="200px" width="170px"> Customer2
+</div>
+<script>
+var n;
+function moveDomObj(id,left,right,top,bottom)
+{
+  var domObj = document.getElementById(id);
+domObj.style.left = left+"px";
+  domObj.style.top = top+"px";
+domObj.style.right = right+"px";
+domObj.style.bottom = bottom+"px";
+}
+ 
+var timer2 = null;
+var timer1 = null;
+var s=0;  
+var a=100;
+var b=200;
+function signal(){
+clearInterval(myVar1);
+s=0;
+var x=a;
+var y=b;
+ moveDomObj("b1",x,200,b,0);
+a+=10;
+b-=10;
+if(a<=260)
+timer2 = setTimeout(signal, 500);
+else{
+a=0;
+ws1();
+}
+}
+function signal1(){
+clearInterval(myVar);
+s=0;
+var x=c;
+var y=d;
+ moveDomObj("b2",800,x,d,0);
+c+=10;
+d-=10;
+if(c<=400)
+timer1 = setTimeout(signal1, 500);
+else{
+c=0;
+
+ws();
+}
+}
+
+function s1(){
+var x=a;
+var y=b;
+ moveDomObj("b1",0,1000,b,0);
+a+=18;
+b-=10;
+if(a<=430)
+timer2 = setTimeout(s1, 500);
+else{
+a=100;
+b=200;
+}
+}
+function ws()
+{
+if(s==0) {
+var x=a;
+var y=b;
+ moveDomObj("b1",x,1000,b,0);
+a+=18;
+b-=10;
+if(a<=430)
+timer2 = setTimeout(ws, 500);
+else{
+a=0;
+s=1;
+return;
+}
+}
+else{
+myVar=setInterval(function(){s1()},1000);
+}
+}
+var c=180;
+var d=210;
+function s2(){
+var x=c;
+var y=d;
+ moveDomObj("b2",800,0,d,0);
+c+=15;
+d-=10;
+if(c<=450)
+timer1 = setTimeout(s2, 500);
+else{
+c=180;
+d=210;
+}
+}
+function ws1()
+{
+if(s==0){
+var x=c;
+var y=d;
+ moveDomObj("b2",800,x,d,0);
+c+=15;
+d-=10;
+if(c<=450)
+timer1 = setTimeout(ws1, 500);
+else{
+c=0;
+s=1;
+return;
+}
+}
+else{
+myVar1=setInterval(function(){s2()},1000);
+}
+}
+</script>
+<div id="b3">
+<input type="button" value="wait signal" name="animation"onclick="ws()"><br>
+<input type="button"value="signal"onclick="signal()">
+</div>
+
+<div id="b4">
+<input type="button" value="signal" onClick="signal1()">
+<input type="button" value="check signal" signal" name="animation"onclick="ws1()"><br>
+</div>
+<center><h1>Critical Section Problem Solution</h1></center>
+<p>
+Here in this html page we are explaning the solution for critical section problem using semaphores,busywaiting and spin lock
+
+Customer1 wants to access the critical section when he access the critical section he calls the wait function.Now process two waits until process1 (customer1 ) sends the signal.Process2 i.e customer2 checks the critical section continuosly in order to enter in the critical section.This continuosly testing a variable until some value appear is called busy waiting.
+                        The process2(cutomer2) is able to enter in the telephone booth only when process1(cutomer1)  finishes his work in critical section and pass the signal.
+                       A lock that uses busy waiting is called spin lock.
+          Busy waiting should be avoide because it wastes CPU time. Only when there is reasonable expectation that the wait will be short is busy waiting used.</p> 
+</body>
+</html>

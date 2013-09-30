@@ -1,0 +1,7 @@
+Solution for critical section problem
+Here in this html page we are explaning the solution for critical section problem using semaphores,busywaiting and spin lock
+
+Customer1 wants to access the critical section when he access the critical section he calls the wait function.Now process two waits until process1 (customer1 ) sends the signal.Process2 i.e customer2 checks the critical section continuosly in order to enter in the critical section.This continuosly testing a variable until some value appear is called busy waiting.
+                        The process2(cutomer2) is able to enter in the telephone booth only when process1(cutomer1)  finishes his work in critical section and pass the signal.
+                       A lock that uses busy waiting is called spin lock.
+          Busy waiting should be avoide because it wastes CPU time. Only when there is reasonable expectation that the wait will be short is busy waiting used.
