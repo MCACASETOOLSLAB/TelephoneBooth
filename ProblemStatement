@@ -1,4 +1,4 @@
-TelephoneBooth
+Group 27 (TelephoneBooth)
 ===============
 
 The problem statement here asks us to develop an interactive software that would demonstrate process synchronization problem using semaphores, busy waiting, spinlocks, monitors, critical section,etc.
