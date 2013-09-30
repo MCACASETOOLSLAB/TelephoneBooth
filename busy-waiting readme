@@ -1,0 +1,10 @@
+In the file busy-waiting, process2 is waiting for process to give the signal then only process2 can enter the critical
+section, here process2 is continously waiting for process1 to give signal (signal()). 
+here cpu time of process2 has been wasted in waiting.
+
+Busy-waiting itself can be made much less wasteful by using a delay function (e.g., sleep()) found in most
+operating systems. This puts a thread to sleep for a specified time, during which the thread will waste no CPU time.
+If the loop is checking something simple then it will spend most of its time asleep and will waste very little CPU time.
+
+In programs that never end (such as operating systems), infinite busy waiting can be implemented by using 
+unconditional jumps.
