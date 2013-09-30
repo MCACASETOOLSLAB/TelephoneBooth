@@ -1,0 +1,180 @@
+#include<stdio.h>
+#include<conio.h>
+#include <time.h>
+
+#define total_no_of_man 5;
+int status,waiting_man;
+time_t current_time,start_time;
+ void man_finishing_call();
+int check_booth_avail();
+void check_man_status();
+void man_comes();
+void man_count();
+
+//////////// MAIN Function //////////////
+
+int main()
+{
+    waiting_man=0;
+    int choice=1;
+       
+       while(1)
+       {
+          choice=select();
+            
+        switch(choice)
+          {
+          case 0 :
+            man_comes();
+            
+            system("pause");
+            break;
+          case 1:
+            check_man_status();
+            system("pause");
+            break;
+          case 2:
+            man_finishing_call();
+            man_count();
+            system("pause");
+            break;
+          case 3:
+              exit(1);
+          default:
+              printf("\n\t Wrong Choice \n");
+              
+          
+       }
+   }
+    
+    
+    getch();
+}
+
+     
+     
+
+///////////// Function for customer when he wanted to enter the shop ////////
+void man_comes()
+{
+    int booth_availble=0;
+    booth_availble=check_booth_avail();
+   if(booth_availble<=0)
+   {
+      printf(" Man must have to stand waiting for availablity");
+      return;
+    }
+    
+    
+   if(booth_availble==5)
+   {
+     printf(" \n\t WAIT...... \n\t Man is waking up");
+     sleep(1000);
+     printf("\n\t Booth is now available");
+     waiting_man=5-booth_availble+1;
+     printf("\n\t Man has to wait for %d Man in Queue ",(waiting_man-1));
+   }
+   else
+   {
+     waiting_man=5-booth_availble+1;
+     printf("\n\tMan has to wait %d Man in Queue ",(waiting_man-1));
+     
+   }
+}
+
+///////////// Man checks whether telephone Booth is available or not
+
+int check_booth_avail(char *start_time_string, char *current_time_string)
+{
+      int booth_available=0;
+     
+      booth_available=5-waiting_man;
+     if(booth_available<=5)
+        return booth_available;
+        
+    return 5;
+}
+
+//////////// Only for wathing the status of Man that what Man is doing
+ 
+void check_man_status()
+{
+      int start_time_int,current_time_int;
+      int booth_available=5-waiting_man;
+    
+  if(booth_available>5)
+     printf("\n\t Man is on call.... \n\t There is no man in the Queue");
+    
+  if(booth_available==4)
+     printf("\n\t last Man on Call.... \n\t Booth will be closed(sleep) after this man has finished talking \n\t There is no Man in the Queue");
+
+  if(booth_available>=1 && booth_available<4)
+     printf("\n\t telephone booth is busy in %d Man call.... \n\t There is/are %d Man(s) in the Queue ",5-(int)booth_available,4-(int)booth_available);
+
+}
+
+ void man_finishing_call()
+ {
+ // will be done by others
+ }
+ 
+ 
+ 
+ 
+ //////////////////// Function for User interface /////////
+ 
+ int select()
+ {
+     int choice=0;
+     char ch;
+     system("cls");
+     printf("\n\t ********************************");
+           printf("\n\t Telephone Booth Problem Solution");
+           printf("\n\t ********************************");
+          
+     printf("\n\t%c [1]. New man come for Call \n\t 2. Simply Check the status of Man \n\t 3. Telephone can hold one Man at a time \n\t 4. Exit \n\t ",219);
+    while(1)
+       {
+           fflush(stdin);
+           ch=getch();
+          system("cls");
+          printf("\n\t ********************************");
+           printf("\n\t Telephone Booth Problem Solution");
+           printf("\n\t ********************************");
+          
+          if(ch==13)
+           break;
+          if(ch=='\t'||ch==80)
+            choice=(choice+1)%4;
+          if(choice==0 && ch==72 || ch==-108)
+           choice=4;
+          if(choice>0 && ch==72 || ch==-108)
+           choice--;
+          if(ch<='4'&&ch>='1')
+            choice=ch-49;
+           
+           
+              if(choice==0)
+                printf("\n\t%c [1]. New Man come for call \n\t 2. Simply Check the status of Man \n\t 3. Telephone booth can hold one Man at a Time \n\t 4. Exit \n\t ",219);
+              if(choice==1)
+               printf("\n\t 1 New Man come for call \n\t %c [2.] Simply Check the status of Man \n\t 3. Telephone booth can hold one Man at a Time \n\t 4. Exit \n\t ",219);
+ 
+              if(choice==2)
+                 printf("\n\t 1 New Man come for call \n\t 2. Simply Check the status of Man \n\t %c[3.] Telephone booth can hold one Man at a Time \n\t 4. Exit \n\t ",219);
+ 
+              if(choice==3)
+               printf("\n\t 1. New Man come for call \n\t 2. Simply Check the status of Man \n\t 3. Telephone booth can hold one Man at a Time \n\t 4. Exit \n\t ",219);
+ 
+              
+    
+       }
+     return choice; 
+     
+     
+void man_count()
+     {
+     static int count=0;
+     count++;
+     printf("No. person entered into telephonebooth =%d",&count);
+     }
+     
